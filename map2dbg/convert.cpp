@@ -441,8 +441,13 @@ bool TMapFile::GetSymbol(unsigned short *aseg,unsigned long *aoff,AnsiString *an
   if (line==str->Count)
 	return false;
   AnsiString s = str->Strings[line];
+
+  //example of some lines:
+  // 0001:0000035C       System.CloseHandle
+  // 0001:00000380  __acrtused
+
   line++;
-  if (s.Length()<22)
+  if (s.Length()<15)          //minimal size = 15
 	return false;
   AnsiString sseg = s.SubString(2,4);
   for (int i=1; i<=sseg.Length(); i++)
@@ -460,7 +465,8 @@ bool TMapFile::GetSymbol(unsigned short *aseg,unsigned long *aoff,AnsiString *an
 	if (!okay)
 	  return false;
   }
-  AnsiString sname = Trim(s.SubString(21,s.Length()-20));
+  //AnsiString sname = Trim(s.SubString(21,s.Length()-20));
+  AnsiString sname = Trim(s.SubString(15,s.Length()));      //minimal size = 15
   unsigned int val;
   int i;
   i = sscanf(sseg.c_str(),"%x",&val);
@@ -510,7 +516,8 @@ int convert(AnsiString exe,AnsiString &err)
 	AnsiString name;
 	anymore=mf->GetSymbol(&seg,&off,&name);
 	if (anymore)
-	  anymore=df->AddSymbol(seg,off,name); // stop it upon error
+	  if (name.Length()>0)                   //skip empty names
+	    anymore=df->AddSymbol(seg,off,name); // stop it upon error
   }
   delete mf;
   bool dres=df->End();

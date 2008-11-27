@@ -227,7 +227,7 @@
           <Debugging Name="DebugSourceDirs"></Debugging>
         </Debugging>
         <Parameters>
-          <Parameters Name="RunParams"></Parameters>
+          <Parameters Name="RunParams">calldemo.exe</Parameters>
           <Parameters Name="Launcher"></Parameters>
           <Parameters Name="UseLauncher">True</Parameters>
           <Parameters Name="DebugCWD"></Parameters>
