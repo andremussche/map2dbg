@@ -25,10 +25,11 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
+        <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="calldemo.exe"/>
         <property category="build.node" name="packages" value="rtl;vcl"/>
         <property category="build.node" name="sparelibs" value="rtl.lib vcl.lib"/>
-        <property category="build.node" name="use_packages" value="1"/>
+        <property category="build.node" name="use_packages" value="0"/>
         <property category="build.platform" name="active" value="win32"/>
         <property category="build.platform" name="win32.Debug_Build.toolset" value="win32b"/>
         <property category="build.platform" name="win32.Release_Build.toolset" value="win32b"/>
@@ -124,7 +125,6 @@
           <property category="win32.*.win32b.bcc32" name="option.rd.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.1" value="NO_STRICT"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.2" value="_RTLDLL"/>
-          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.3" value="USEPACKAGES"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.tW.enabled" value="1"/>
@@ -172,7 +172,7 @@
           <property category="win32.*.win32b.ilink32" name="option.-w-.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.D.arg" value="&quot;&quot;"/>
           <property category="win32.*.win32b.ilink32" name="option.D.arg.merge" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.D.enabled" value="1"/>
+          <property category="win32.*.win32b.ilink32" name="option.D.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.GD.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpd.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.Gpr.enabled" value="0"/>
@@ -284,15 +284,15 @@
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclIndyProtocols100.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dcltee100.bpl">TeeChart Components</Excluded_Packages>
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\applet100.bpl">File c:\program files\borland\bds\4.0\Bin\applet100.bpl not found</Excluded_Packages>
-          <Excluded_Packages Name="C:\Program Files\RemObjects Software\Everwood\Bin\RemObjects_Everwood_D10.bpl">Everwood</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Core_D10.bpl">RemObjects SDK - Core Library</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_IDE_D10.bpl">RemObjects SDK - IDE Integration for Win32</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_WebBroker_D10.bpl">RemObjects SDK - WebBroker Library</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_RODX_D10.bpl">RemObjects SDK - RODXSock Library</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_BPDX_D10.bpl">RemObjects SDK - BPDX Library</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_DataSnap_D10.bpl">RemObjects SDK - DataSnap Integration Pack</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Synapse_D10.bpl">RemObjects SDK - Synapse based Channels</Excluded_Packages>
-          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Indy_D10.bpl">RemObjects SDK - Indy Library</Excluded_Packages>
+          <Excluded_Packages Name="C:\Program Files\RemObjects Software\Everwood\Bin\RemObjects_Everwood_D10.bpl">RemObjects Everwood for Delphi</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Core_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Core_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_IDE_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_IDE_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_WebBroker_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_WebBroker_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_RODX_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_RODX_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_BPDX_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_BPDX_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_DataSnap_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_DataSnap_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Synapse_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Synapse_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Indy_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Indy_D10.bpl not found</Excluded_Packages>
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\bcbofficexp100.bpl">Borland C++Builder Office XP Servers Package</Excluded_Packages>
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclbcbsmp100.bpl">Borland Sample Controls Design Time Package</Excluded_Packages>
           <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\bcbie100.bpl">Borland C++Builder Internet Explorer 5 Components Package</Excluded_Packages>
