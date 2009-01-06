@@ -28,10 +28,11 @@
         <property category="build.config.1" name="settings.win32b" value="default"/>
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
+        <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="map2dbg.exe"/>
         <property category="build.node" name="packages" value="vclx;vcl;rtl;dbrtl;vcldb;adortl;dbxcds;dbexpress;xmlrtl;vclie;inet;inetdbbde;inetdbxpress;soaprtl;dsnap;vclactnband;bdertl;vcldbx;indy"/>
         <property category="build.node" name="sparelibs" value="rtl.lib vcl.lib"/>
-        <property category="build.node" name="use_packages" value="1"/>
+        <property category="build.node" name="use_packages" value="0"/>
         <property category="build.platform" name="active" value="win32"/>
         <property category="build.platform" name="win32.Debug_Build.toolset" value="win32b"/>
         <property category="build.platform" name="win32.Release_Build.toolset" value="win32b"/>
@@ -46,7 +47,6 @@
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.Od.enabled" value="1"/>
-        <property category="win32.Debug_Build.win32b.bcc32" name="option.k.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.r.enabled" value="0"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.v.enabled" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.vi.enabled" value="0"/>
@@ -119,6 +119,7 @@
           <property category="win32.*.win32b.bcc32" name="option.align-5.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.b.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.disablewarns.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.k.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.noregistervars.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.p.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.pm.enabled" value="0"/>
@@ -126,14 +127,14 @@
           <property category="win32.*.win32b.bcc32" name="option.ps.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.rd.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.1" value="_RTLDLL"/>
-          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.2" value="USEPACKAGES"/>
-          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.3" value="NO_STRICT"/>
+          <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.2" value="NO_STRICT"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.sysdefines.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.tW.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.tWC.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.tWD.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.tWM.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.vi.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.w.enabled" value="0"/>
           <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="C:\Andre\Downloads\map2dbg2\map2dbg2"/>
           <property category="win32.*.win32b.dcc32" name="option.I.arg.merge" value="1"/>
@@ -176,8 +177,9 @@
           <property category="win32.*.win32b.ilink32" name="option.j.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.m.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.map_segments.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.s.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.s.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.w.enabled" value="0"/>
+          <property category="win32.*.win32b.ilink32" name="option.x.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.1" value="$(LIBRARIES)"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.2" value="import32.lib"/>
           <property category="win32.*.win32b.ilink32" name="param.libfiles.3" value="cp32mti.lib"/>
@@ -243,6 +245,21 @@
           <Parameters Name="LoadAllSymbols">True</Parameters>
           <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
         </Parameters>
+        <Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclIndyCore100.bpl">Indy 10 Core Design Time</Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclofficexp100.bpl">File c:\program files\borland\bds\4.0\Bin\dclofficexp100.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclsmp100.bpl">File c:\program files\borland\bds\4.0\Bin\dclsmp100.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\dclIndyProtocols100.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
+          <Excluded_Packages Name="c:\program files\borland\bds\4.0\Bin\applet100.bpl">File c:\program files\borland\bds\4.0\Bin\applet100.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Core_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Core_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_IDE_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_IDE_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_WebBroker_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_WebBroker_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_RODX_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_RODX_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_BPDX_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_BPDX_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_DataSnap_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_DataSnap_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Synapse_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Synapse_D10.bpl not found</Excluded_Packages>
+          <Excluded_Packages Name="P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Indy_D10.bpl">File P:\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D10\RemObjects_Indy_D10.bpl not found</Excluded_Packages>
+        </Excluded_Packages>
         <Linker>
           <Linker Name="LibPrefix"></Linker>
           <Linker Name="LibSuffix"></Linker>
