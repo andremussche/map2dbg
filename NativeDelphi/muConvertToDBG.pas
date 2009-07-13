@@ -35,7 +35,7 @@ type
     procedure WriteHeader;
     procedure InitHeaderUsingMap(aDebugInfoSource: TJclDebugInfoSource);
     procedure InitHeaderUsingJDBG(aDebugInfoSource: TJclDebugInfoSource);
-    procedure WriteSymbol(aSeg, aOff:Integer; const aSymbol:PJclMapString);
+    procedure WriteSymbol(aSeg, aOff:Integer; const aSymbol:string);
     procedure CloseDBG;
     procedure MarkAsDebugStriped;
   end;
@@ -47,10 +47,7 @@ type
     lOff:     LongWord;
     bSeg:     Word;
     bTypInd:  Word;
-    //cName:    array of char;
-    //cName: array [0..1] of Char;
     cName:    Char;
-    //cName:    string[1];  
   end;
   PPubSym32 = ^TPubSym32;
 
@@ -166,7 +163,7 @@ begin
   FMemoryStream.Free;
   inherited;
 end;
-  
+
 // Deletes the tmp files that were created during the converting proces
 procedure TConverter.DeleteTempFiles;
 var
@@ -271,7 +268,8 @@ function TConverter.ConvertMapToDBG(aDebugInfoSource: TJclDebugInfoSource) : BOO
 var
   tScanner:         TJclMapScanner;
   tProcName:        TJclMapProcName;
-  sMapName          : string;
+  sSymbol,
+  sMapName:         string;
   bState:           BOOL;
   iProcNameID,
   iProcNameCount:   Integer;
@@ -320,7 +318,8 @@ begin
     for iProcNameID := 0 to iProcNameCount do
       begin
         tProcName := tScanner.FProcNames[iProcNameID];
-        WriteSymbol(tProcName.Segment, tProcName.VA, tProcName.ProcName);
+        sSymbol   := __ExtractSymbol(tProcName.ProcName);
+        WriteSymbol(tProcName.Segment, tProcName.VA, sSymbol);
       end; // FOR ProcNames
 
     CloseDBG;
@@ -347,6 +346,7 @@ var
   sProcName:        string;
   iProcNameID,
   iSegmentID,
+  iSegmentsHigh,
   iOffset:          Integer;
   bState:           BOOL;
 begin
@@ -369,7 +369,7 @@ begin
     begin
       tScanner := TJclBinDebugScanner.Create(tFStream, True);
       TJclBinDebugScannerHack(tScanner).CacheProcNames;
-      //TJclBinDebugScannerHack(tScanner).CacheLineNumbers;
+      TJclBinDebugScannerHack(tScanner).CacheLineNumbers;
       //tScanner.ProcNameFromAddr( Cardinal(@Windows.Beep) );
       //tScanner.LineNumberFromAddr( Cardinal(@Windows.Beep));
       //tScanner.LineNumberFromAddr( 0 );
@@ -387,16 +387,28 @@ begin
         begin
           tProc     := tScanner.FProcNames[iProcNameID];
           sProcName := tScanner.ProcNameFromAddr(tProc.Addr);
-          for iSegmentID := 0 to High(tScanner.FSegmentNames) do
-            begin
-              tSeg := tScanner.FSegmentNames[iSegmentID];
-              if  (tProc.Addr >= tSeg.Address)
-              and (tProc.Addr <= (tSeg.Address + tSeg.Length)) then
-                  Break;
-            end; // FOR Segments
 
-          iOffset := tProc.Addr - tSeg.Address;
-          WriteSymbol(tSeg.Segment, iOffset, PJclMapString(sProcName));
+          {$IFDEF COMPATIBILITY}  // For usage of JclDebug without segments (JclDebugExt)
+            iOffset := tProc.Addr;
+            WriteSymbol(1, iOffset, sProcName);
+          {$ENDIF COMPATIBILITY}
+
+          {$IFNDEF COMPATIBILITY} // For usage of JclDebug with segments (JclDebugExt)
+            // Determine proper segment based upon address
+            iSegmentsHigh := High(tScanner.FSegmentNames);
+            for iSegmentID := 0 to iSegmentsHigh do
+              begin
+                tSeg := tScanner.FSegmentNames[iSegmentID];
+                if  (tProc.Addr >= tSeg.Address)
+                and (tProc.Addr < (tSeg.Address + tSeg.Length)) then
+                    Break;
+              end; // FOR Segments
+
+            iOffSet := tProc.Addr;
+            //iOffSet := tProc.Addr - tSeg.Address;
+            WriteSymbol(tSeg.Segment, iOffset, sProcName);
+          {$ENDIF !COMPATIBILITY}
+          
         end; // FOR ProcNames
 
       CloseDBG;
@@ -476,10 +488,7 @@ end;
 
 // Start the dbg
 function TConverter.CreateDBG : BOOL;
-var
-  iPos     : Integer;
 begin
-  //iPos        := LastPos('\', sFileName);
   sDebugFile  := ChangeFileExt(sFileName, '.dbg');
   Result      := EnsureStarted;
 end;
@@ -773,15 +782,14 @@ begin
 end;
 
 // Write a segment, offset and symbol to the file, returns if writiong was successfull
-procedure TConverter.WriteSymbol(aSeg: Integer; aOff: Integer; const aSymbol: PJclMapString);
+procedure TConverter.WriteSymbol(aSeg: Integer; aOff: Integer; const aSymbol: string);
 var
   bSymLen:      Byte;
   wRealRecLen:  Word;
   rPubSym32:    PPubSym32;
-  sTName:       String;
   pName:        pchar;
 
-  function __NextItemPos(aString: PJclMapString; var aName : String): integer;
+  {function __NextItemPos(aString: PJclMapString; var aName : String): integer;
   var
     P: PChar;
   begin
@@ -805,7 +813,7 @@ var
     end;
     Result := P - aString;
     SetString(aName, aString, Result);
-  end;
+  end;}
 
 begin
   if (EnsureStarted = False) or (FMemoryStream = nil) then
@@ -813,10 +821,10 @@ begin
       raise Exception.Create('MemoryStream is empty or dbg has created yet!');
     end;
 
-  sTName      := '';
-  bSymLen     := __NextItemPos(aSymbol, sTName);
-  if bSymLen <= 0 then
-    bSymLen   := Length(aSymbol);
+  //sTName      := '';
+  //bSymLen     := __NextItemPos(aSymbol, sTName);
+  //if bSymLen <= 0 then
+  bSymLen   := Length(aSymbol);
   wRealRecLen := SizeOf(TPubSym32) + bSymLen;
 
   GetMem(rPubSym32, wRealRecLen);
@@ -831,7 +839,8 @@ begin
     cName    := char(bSymLen);
     pName    := @cName;
     pName    := Pointer( Cardinal(pName) + SizeOf(Char) );
-    Move(sTName[1], pName^, bSymLen);
+    Move(aSymbol[1], pName^, bSymLen);
+    //Move(sTName[1], pName^, bSymLen);
     //Move(sTName[1], cName[1], bSymLen);
   end;
 
@@ -937,6 +946,7 @@ begin
 end;
 
 initialization
+
   // DEBUG
   if  ParamCount > 0 then
   begin

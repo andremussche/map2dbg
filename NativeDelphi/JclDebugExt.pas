@@ -2314,7 +2314,8 @@ begin
     C := 0;
     Ln := 0;
     P := MakePtr(PJclDbgHeader(FStream.Memory)^.LineNumbers);
-    while ReadValue(P, Value) do
+    while //(Cardinal(P) < Cardinal(MakePtr(PJclDbgHeader(FStream.Memory)^.Words))) and
+          ReadValue(P, Value) do
     begin
       Inc(CurrVA, Value);
       ReadValue(P, Value);
@@ -2336,6 +2337,12 @@ begin
 
   if FSegmentNames = nil then
   begin
+    if (Cardinal(P) = Cardinal(MakePtr(PJclDbgHeader(FStream.Memory)^.Words))) then
+    begin
+      //old version of jclDebug does not write Segments, so quit here
+      exit;
+    end;
+
     iSegment := 0;
     iCount   := 0;
     dAddress := 0;
@@ -2640,7 +2647,7 @@ begin
     Inc(PByte(P));
     Inc(N, (B and $7F) shl I);
     Inc(I, 7);
-  until B and $80 = 0;
+  until (B and $80 = 0) or (N = MaxInt);
   Value := N;
   Result := (Value <> MaxInt);
 end;
