@@ -1,1 +1,6 @@
+Many thanks to the creator of the original project:
 http://tds2pdb.sourceforge.net/
+
+I only commented some code, so it tries to continue to 
+generate .pdb files for Delphi executables too.
+(original project only supported C++Builder)
