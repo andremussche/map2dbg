@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("tds2pdbproto")]
+[assembly: AssemblyTitle("tds2pdb")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CCI")]
-[assembly: AssemblyProduct("tds2pdbproto")]
-[assembly: AssemblyCopyright("Copyright © CCI 2008")]
+//[assembly: AssemblyCompany("CCI")]
+[assembly: AssemblyProduct("tds2pdb")]
+//[assembly: AssemblyCopyright("Copyright © CCI 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.1")]
+[assembly: AssemblyFileVersion("1.0.1.1")]
