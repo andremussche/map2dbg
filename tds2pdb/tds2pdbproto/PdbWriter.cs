@@ -1485,8 +1485,10 @@ namespace tds2pdbproto
 				stm.Position = 0;
 
 			FileStream outstm = File.OpenWrite(pdbname);
-			pdbcompile.PdbCompiler.Compile(m_streams.ToArray(), outstm, 1024);
-			pdbbind.PdbBind.Bind(exename, pdbname, timestamp, guid, age);
+            //pdbcompile.  made internal, no dependency
+            PdbCompiler.Compile(m_streams.ToArray(), outstm, 1024);
+			//pdbbind.  made internal, no dependency
+            PdbBind.Bind(exename, pdbname, timestamp, guid, age);
 		}
 
 		internal static void WriteModuleStream(MemoryStream stm, ModuleInfo mod, out int symbolsLen, out int sourcesLen)

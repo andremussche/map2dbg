@@ -128,9 +128,11 @@ namespace tds2pdbproto
 		Operator = 8,
 		Unknown1 = 0x10,
 		Constructor = 0x20,
-		Unknown2 = 0x40,
-		AutoMethod = 0x80, // метод добавлен автоматически
-		Unknown3 = 0x100,
+		Unknown2 = 0x40
+        
+        //argument out of range?
+		//AutoMethod = 0x80, // метод добавлен автоматически
+		//Unknown3 = 0x100,
 	}
 
 	struct TdsMemberAttribute
@@ -2085,6 +2087,15 @@ namespace tds2pdbproto
 			string baseFname = Path.GetFileNameWithoutExtension(tdsFile);
 			string pdbName = Path.Combine(folder, baseFname + ".pdb");
 			string exeName = Path.Combine(folder, baseFname + ".exe");
+            if (!File.Exists(exeName))
+            {
+                //dll exists?
+                exeName = Path.Combine(folder, baseFname + ".dll");
+                if (!File.Exists(exeName))
+                  //no dll, keep .exe for error
+                  Path.Combine(folder, baseFname + ".exe");   
+            }
+
 			FileStream stm = File.OpenRead(tdsFile);
 			ParseTds(stm);
 			PdbWriter.WritePdb(globalSymbols, modules, pdbName, exeName);
