@@ -1339,7 +1339,8 @@ namespace tds2pdbproto
 					sc.Offset = segInfo.Offset;
 					sc.Length = segInfo.Length;
 					sc.ModuleIndex = (ushort)moduleIndex;
-					secContribs.Add(sc, null);
+                    if (!secContribs.ContainsKey(sc))
+					  secContribs.Add(sc, null);
 				}
 				int moduleStart = (int)modulesStream.Position;
 				wrr.Write((int)0); // unknown
