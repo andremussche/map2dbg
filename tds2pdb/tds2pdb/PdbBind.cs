@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace pdbbind
+namespace tds2pdbproto
 {
 	public class PdbBind
 	{
@@ -129,18 +129,19 @@ namespace pdbbind
 					break;
 				}
 			}
-			SectionHeader rdataSect = sectionHeaders[rdataIndex];
 			if (rdataIndex == -1)
 			{
 				Console.WriteLine("Error: .rdata section not found");
 				return 1;
 			}
-			int debugSizeFileAligned = RoundUp(debugSize, fileAlignment);
+            SectionHeader rdataSect = sectionHeaders[rdataIndex];
+
+            int debugSizeFileAligned = RoundUp(debugSize, fileAlignment);
 			int newRdataSizeFileAligned = rdataSect.FileSize + debugSizeFileAligned;
 			int newRdataSizeSectionAligned = RoundUp(newRdataSizeFileAligned, sectionAlignment);
 			if (rdataSect.VirtualSize < newRdataSizeSectionAligned)
 			{
-				Console.WriteLine("Error: crossing section alignment boundary, relocation requred, not implemented");
+				Console.WriteLine("Error: crossing section alignment boundary, relocation required, not implemented");
 				return 1;
 			}
 			// injecting debug data
@@ -197,24 +198,4 @@ namespace pdbbind
 		}
 	}
 
-	class Program
-	{
-		static int Main(string[] args)
-		{
-			if (args.Length < 4)
-			{
-				Console.WriteLine("pdbbind exefile timestamp guid age");
-				return 0;
-			}
-			string exefileStr = args[0];
-			string timestampStr = args[1];
-			string guidStr = args[2];
-			string ageStr = args[3];
-			int timestamp = int.Parse(timestampStr);
-			Guid guid = new Guid(guidStr);
-			int age = int.Parse(ageStr);
-			string pdbname = Path.GetFileNameWithoutExtension(exefileStr) + ".pdb";
-			return PdbBind.Bind(exefileStr, pdbname, timestamp, guid, age);
-		}
-	}
 }

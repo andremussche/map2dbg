@@ -11,7 +11,7 @@ Steps how to use it with Delphi (32 and 64bit!):
   tdstrp32.exe -s <yourproject.exe>
   Note: don't use the -s switch with a 64bit exe -> it will corrupt your exe! (the .tds is OK)
 - Convert the .tds file into a .pdb file with:  
-  tds2pdbproto.exe <yourproject.tds>
+  tds2pdb.exe <yourproject.tds>
 - Run your program
 - Attach a debugger or a task manager, and write the path to the .pdb file:
   - WinDbg.exe (Microsoft Debugging Tools for Windows, x86 for 32bit, x64 for 64bit) 
