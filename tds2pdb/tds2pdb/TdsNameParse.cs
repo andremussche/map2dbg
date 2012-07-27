@@ -489,8 +489,8 @@ namespace tds2pdbproto
 						else
 						{
 							Console.WriteLine("Warning: Name cannot be parsed: " + strname);
-							Console.WriteLine("  Error v2: " + exv2.Message);
-							Console.WriteLine("  Error v1: " + exv1.Message);
+							//Console.WriteLine("  Error v2: " + exv2.Message);
+							//Console.WriteLine("  Error v1: " + exv1.Message);
 							Name name = new Name();
 							name.Tag = strname;
 							return name;
@@ -611,8 +611,8 @@ namespace tds2pdbproto
 						}
 						else
 						{
-							if (strname.Length < i + templParamUdtNameLen)
-								throw new ApplicationException("Invalid type name length: " + templParamUdtNameLen.ToString() + ", exceed name length: " + strname.Length.ToString());
+							//if (strname.Length < i + templParamUdtNameLen)
+							//	throw new ApplicationException("Invalid type name length: " + templParamUdtNameLen.ToString() + ", exceed name length: " + strname.Length.ToString());
 							TagTemplParam tagpar = new TagTemplParam();
 							tagpar.Tag = TranslateUdtNameV1(strname.Substring(i, templParamUdtNameLen));
 							templateParams.Add(tagpar);
@@ -630,8 +630,8 @@ namespace tds2pdbproto
 							case 'u':
 								//unsigned = true;
 								break;
-							default:
-								throw new ApplicationException("Invalid character while in state 2: " + ch + ", in string: " + strname);
+                            //default: ;
+							//	throw new ApplicationException("Invalid character while in state 2: " + ch + ", in string: " + strname);
 						}
 						break;
 					case 10:
