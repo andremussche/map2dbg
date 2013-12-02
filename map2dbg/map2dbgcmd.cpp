@@ -23,6 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	ok=true;
   if (!ok)
   {
+	fputs("Map2Dbg version 1.4\n",stdout);
 	fputs("Syntax: map2dbg [/nomap] file.exe\n",stdout);
 	return 1;
   }
