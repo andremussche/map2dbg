@@ -24,7 +24,6 @@
 			<PackageImports>vclx.bpi;vcl.bpi;dbrtl.bpi;Rave76VCL.bpi;bdertl.bpi;rtl.bpi;bcbie.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;vcldb.bpi;vcldbx.bpi;dsnap.bpi;dsnapcon.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;adortl.bpi;vclib.bpi;ibxpress.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;intrawebdb_100_120.bpi;Intraweb_100_120.bpi;VclSmp.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DataSnapServer.bpi;DbxClientDriver.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;dbxcds.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi</PackageImports>
 			<OutputExt>exe</OutputExt>
 			<AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
-			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<Defines>NO_STRICT</Defines>
 			<DynamicRTL>true</DynamicRTL>
 			<UsePackages>true</UsePackages>
@@ -59,22 +58,22 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="map2dbg.cpp">
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
 			<CppCompile Include="convert.cpp">
 				<DependentOn>convert.h</DependentOn>
 				<BuildOrder>2</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="map2dbgcmd.cpp">
+				<BuildOrder>1</BuildOrder>
+			</CppCompile>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
-			<BuildConfiguration Include="Release">
-				<Key>Cfg_2</Key>
-				<CfgParent>Base</CfgParent>
-			</BuildConfiguration>
 			<BuildConfiguration Include="Debug">
 				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
 			</BuildConfiguration>
 		</ItemGroup>
@@ -136,6 +135,19 @@
 						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
 						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
 					</ProjectProperties>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\RaveReports\Lib\dclRave.bpl">Rave Reports 7.7 BE Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclIntraweb_100_140.bpl">VCL for the Web 10.0  Design Package for CodeGear RAD Studio</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclie140.bpl">Internet Explorer Components</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projecten_PS\Lib\Componenten\BPL\D2010\RBKRepositoryWizardD2010.bpl">RBK Templates Wizard</Excluded_Packages>
+						<Excluded_Packages Name="C:\projecten_PS\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D14\RemObjects_DataSnap_D14.bpl">RemObjects SDK - DataSnap Integration Pack</Excluded_Packages>
+						<Excluded_Packages Name="C:\projecten_PS\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D14\RemObjects_Synapse_D14.bpl">RemObjects SDK - Synapse based Channels</Excluded_Packages>
+						<Excluded_Packages Name="C:\projecten_PS\Lib\Componenten\RemObjects SDK for Delphi\Dcu\D14\RemObjects_WebBroker_D14.bpl">RemObjects SDK - WebBroker Library</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcboffice2k140.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\bcbofficexp140.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
 				</CPlusPlusBuilder.Personality>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>

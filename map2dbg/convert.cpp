@@ -179,6 +179,7 @@ bool TDebugFile::EnsureStarted()
   szModName    = ((modname.Length()+1)+3) & (~3); // round it up
   oCv          = sizeof(IMAGE_SEPARATE_DEBUG_HEADER) + image.NumberOfSections*sizeof(IMAGE_SECTION_HEADER) + 1*sizeof(IMAGE_DEBUG_DIRECTORY);
   cvoSstModule = sizeof(OMFSignature) + sizeof(OMFDirHeader) + 3*sizeof(OMFDirEntry);
+  //szSstModule  = offsetof(OMFModule,SegInfo) + image.NumberOfSections*sizeof(OMFSegDesc) + szModName;
   szSstModule  = offsetof(OMFModule,SegInfo) + image.NumberOfSections*sizeof(OMFSegDesc) + szModName;
   cvoGlobalPub = cvoSstModule + szSstModule;
   gpoSym       = sizeof(OMFSymHash);
@@ -319,8 +320,14 @@ bool TDebugFile::End()
 	fwrite( &omfsegdesc, sizeof(omfsegdesc), 1, file );
   }
   // WriteSstModule - modname
-  fwrite( modname.c_str(), szModName, 1, file );
-  //
+
+  unsigned char namelen = modname.Length();
+  fwrite( &namelen, 1, 1, file ); // write the length byte
+  fwrite( modname.c_str(), namelen, 1, file ); // write the string
+  // write the padding bytes (if szModName is longer than namelen+1)
+  unsigned char pad = 0;
+  for (unsigned int i = 0; i < szModName - (namelen+1); i++ )
+	 fwrite( &pad, 1, 1, file );
   // WriteGlobalPub
   check(oCv + cvoGlobalPub,"CV:GlobalPub module");
   OMFSymHash omfSymHash;
@@ -330,6 +337,7 @@ bool TDebugFile::End()
   omfSymHash.cbHSym = 0;
   omfSymHash.cbHAddr = 0;
   fwrite( &omfSymHash, sizeof(omfSymHash), 1, file );
+
   // WriteGlobal - symbols
   fseek(file, oCv + cvoSegMap, SEEK_SET);
   //
